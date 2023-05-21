@@ -1,0 +1,35 @@
+.tiel-focus {
+  background-color: #ffcb05;
+  color: #000;
+}
+.tile {
+  border: 1px solid #fff;
+  margin: 0 auto;
+  padding: 0;
+  transition: all 0.5s ease;
+  margin-top: 50px;
+}
+
+.tile-receipts .content {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.tile .content {
+  display: block;
+  padding: 20px 19px;
+  position: relative;
+}
+
+.logo {
+  width: 90%;
+}
+
+.hoverStyle {
+  transition: 0.1s ease-in;
+  padding: 10px;
+}
+.hoverStyle:hover {
+  background-color: #747171;
+  color: #fff;
+}

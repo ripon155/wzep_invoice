@@ -1,0 +1,102 @@
+<section class="tile tile-recipts tiel-focus">
+  <div class="content">
+    <form class="border shadow p-3 mb-5 bg-white rounded">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-6 float-start col-md-offset">
+            <img class="logo" style="margin-left: 45px" src="" />
+            test
+          </div>
+          <div class="col-md-4 float-end col-md-offset">
+            <div class="fontStyle">
+              <label>Gitanjali Code Rhythm</label>
+            </div>
+            <label for="labelOfCountry">Sabalia 8</label>
+            <br />
+            <label for="labelOfCountry">1111AA Tangail</label>
+            <br />
+            <label for="labelOfCountry" *ngIf="phoneNumber"
+              >Tel: {{ phoneNumber }}</label
+            >
+            <br />
+            <label for="labelOfCountry" *ngIf="chamberOfCommerce"
+              >KvK: {{ chamberOfCommerce }}</label
+            >
+            <br />
+            <label for="labelOfCountry" *ngIf="vatNumber"
+              >BTW: {{ vatNumber }}</label
+            >
+            <br />
+            <label for="labelOfCountry" *ngIf="bank">Bank: {{ bank }}</label>
+          </div>
+        </div>
+
+        <div class="container">
+          <div
+            class="row"
+            (click)="handleCustomerComponent()"
+            *ngIf="!handleCustomerCompo; else customerDetails"
+          >
+            <div class="col-md-12">
+              <div class="row">
+                <div
+                  class="container hoverStyle col-md-4"
+                  style="margin-left: 0%; margin-top: 30px; cursor: pointer"
+                >
+                  <div>
+                    <label class="fontStyle">Gitanjali Code Rhythm</label>
+                  </div>
+                  <div>
+                    <label>Nikunja Behari Goswami</label>
+                  </div>
+                  <div>
+                    <label>Sabalia</label>
+                  </div>
+                  <div>
+                    <label>1900 Tangail</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div
+            class="col-md-12 hoverStyle"
+            style="margin-top: 0px"
+            (click)="handleInvoiceComponent()"
+            *ngIf="!handleInvoice; else invoiceDetails"
+          >
+            <div class="fontStyle">
+              <label class="col-md-8" for="labelInvoice">2023-100</label>
+              <label class="col-md-4" for="labelInvoiceDate">19-05-2023</label>
+            </div>
+            <div>
+              <label class="col-md-8" for="labelInvoice"></label>
+              <label class="col-md-4" for="labelPayDueDate" style="float: right"
+                >18-06-2023</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <ng-template #customerDetails>
+          <div class="container my-5">
+            <app-customer-details></app-customer-details>
+          </div>
+        </ng-template>
+
+        <ng-template #invoiceDetails>
+          <div class="container my-5">
+            <app-invoice-details></app-invoice-details>
+          </div>
+        </ng-template>
+
+        <div class="container my-5">
+          <app-product-details></app-product-details>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
