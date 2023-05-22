@@ -71,7 +71,6 @@ export class ProductDetailsComponent implements OnInit {
   // delete row
   deleteRow(rowId: number) {
     this.tableData = this.tableData.filter((row) => row.id !== rowId);
-    console.log(this.tableData);
   }
 
   calculateTotal(id: number) {}
