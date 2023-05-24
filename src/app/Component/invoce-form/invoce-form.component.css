@@ -28,8 +28,13 @@
 .hoverStyle {
   transition: 0.1s ease-in;
   padding: 10px;
+  cursor: pointer;
 }
 .hoverStyle:hover {
   background-color: #747171;
   color: #fff;
+}
+
+span {
+  display: inline-block;
 }

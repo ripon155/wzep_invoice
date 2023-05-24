@@ -35,25 +35,28 @@
           <div
             class="row"
             (click)="handleCustomerComponent()"
-            *ngIf="handleCustomerCompo; else customerDetails"
+            *ngIf="!handleCustomerCompo; else customerDetails"
           >
             <div class="col-md-12">
-              <div class="row" style="background-color: #495867; color: #fff">
+              <div
+                class="row rounded mt-4"
+                style="background-color: #e2e0e0; color: #000; cursor: pointer"
+              >
                 <div
-                  class="container hoverStyle col-md-4 my-4 rounded p-4"
+                  class="container col-md-4 my-4 p-4"
                   style="margin-left: 0%; margin-top: 30px; cursor: pointer"
                 >
                   <div>
-                    <label class="fontStyle">Gitanjali Code Rhythm</label>
+                    <span class="fontStyle">Gitanjali Code Rhythm</span>
                   </div>
                   <div>
-                    <label>Nikunja Behari Goswami</label>
+                    <span>Nikunja Behari Goswami</span>
                   </div>
                   <div>
-                    <label>Sabalia</label>
+                    <span>Sabalia</span>
                   </div>
                   <div>
-                    <label>1900 Tangail</label>
+                    <span>1900 Tangail</span>
                   </div>
                 </div>
               </div>
@@ -63,19 +66,24 @@
 
         <div class="row">
           <div
-            class="col-md-12 hoverStyle shadow"
-            style="margin-top: 0px"
+            class="col-md-12 mt-5 hoverStyle"
+            style="
+              margin-top: 0px;
+              background-color: #e2e0e0;
+              color: #000;
+              cursor: pointer;
+            "
             (click)="handleInvoiceComponent()"
-            *ngIf="handleInvoice; else invoiceDetails"
+            *ngIf="!handleInvoice; else invoiceDetails"
           >
             <div class="fontStyle">
-              <label class="col-md-8" for="labelInvoice">2023-100</label>
-              <label class="col-md-4" for="labelInvoiceDate">19-05-2023</label>
+              <span class="col-md-8" for="labelInvoice">2023-100</span>
+              <span class="col-md-4" for="labelInvoiceDate">19-05-2023</span>
             </div>
-            <div>
+            <div class="fontStyle">
               <label class="col-md-8" for="labelInvoice"></label>
-              <label class="col-md-4" for="labelPayDueDate" style="float: right"
-                >18-06-2023</label
+              <span class="col-md-4" for="labelPayDueDate" style="float: right"
+                >18-06-2023</span
               >
             </div>
           </div>
