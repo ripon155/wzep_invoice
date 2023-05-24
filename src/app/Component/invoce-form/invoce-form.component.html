@@ -35,12 +35,12 @@
           <div
             class="row"
             (click)="handleCustomerComponent()"
-            *ngIf="!handleCustomerCompo; else customerDetails"
+            *ngIf="handleCustomerCompo; else customerDetails"
           >
             <div class="col-md-12">
-              <div class="row">
+              <div class="row" style="background-color: #495867; color: #fff">
                 <div
-                  class="container hoverStyle col-md-4 shadow my-4 rounded p-4"
+                  class="container hoverStyle col-md-4 my-4 rounded p-4"
                   style="margin-left: 0%; margin-top: 30px; cursor: pointer"
                 >
                   <div>
@@ -66,7 +66,7 @@
             class="col-md-12 hoverStyle shadow"
             style="margin-top: 0px"
             (click)="handleInvoiceComponent()"
-            *ngIf="!handleInvoice; else invoiceDetails"
+            *ngIf="handleInvoice; else invoiceDetails"
           >
             <div class="fontStyle">
               <label class="col-md-8" for="labelInvoice">2023-100</label>

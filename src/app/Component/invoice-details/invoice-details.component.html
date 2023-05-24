@@ -1,7 +1,12 @@
-<form (ngSubmit)="onSubmit(f)" #f="ngForm" class="border p-3">
+<form
+  (ngSubmit)="onSubmit(f)"
+  #f="ngForm"
+  class="border p-3"
+  style="background-color: #e2e0e0"
+>
   <div class="row">
-    <div class="col-md-10">
-      <span class="text-center bg-primary"> Add Invoice</span>
+    <div class="col-md-12 text-center mb-4 border-bottom">
+      <h2 class="mb-4 display-4">Add Invoice</h2>
     </div>
   </div>
   <div class="row formStyle" style="margin-top: 0px">
@@ -92,14 +97,10 @@
 
     <label class="col-sm-2" for="invoice"></label>
     <div class="col-sm-4 form-group">
-      <button
-        class="btn btn-sm btn-outline-danger"
-        style="margin: 4px"
-        type="button"
-      >
+      <button class="btn btn-danger" style="margin: 4px" type="button">
         Cancel
       </button>
-      <button class="btn btn-outline-success" style="margin: 4px" type="submit">
+      <button class="btn btn-primary" style="margin: 4px" type="submit">
         Save
       </button>
     </div>

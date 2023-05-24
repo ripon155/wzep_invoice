@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="col-md-12 border p-4">
     <div class="col-md-10 formStyle">
       <form class="ng-untouched ng-pristine ng-valid">
@@ -71,7 +71,6 @@
               <option value="1">AFGHANISTAN</option>
               <option value="2">ALBANIA</option>
               <option value="3">ALGERIA</option>
-              <!-- Add more options here -->
             </select>
           </div>
         </div>
@@ -90,4 +89,113 @@
     <button class="btn btn-primary">Save</button>
     <button class="btn btn-danger m-3">Cancel</button>
   </div>
-</div>
+</div> -->
+
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div class="row border p-4" style="background-color: #e2e0e0">
+    <div class="row text-center">
+      <h2
+        style="
+          display: inline-block;
+          margin-bottom: 30px;
+          text-transform: uppercase;
+        "
+      >
+        Client Details
+      </h2>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label class="mb-2">Client Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputEmail4"
+          placeholder="Client Name"
+          name="name"
+          [(ngModel)]="name"
+        />
+      </div>
+      <div class="form-group col-md-6 mb-3">
+        <label class="mb-2">Contact</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputPassword4"
+          placeholder="Contact"
+          name="contact"
+          [(ngModel)]="contact"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label class="mb-2">Address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputEmail4"
+          placeholder="Address"
+          name="address"
+          [(ngModel)]="address"
+        />
+      </div>
+      <div class="form-group col-md-6 mb-3">
+        <label class="mb-2">Post Code</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputPassword4"
+          placeholder="Post Code"
+          name="postCode"
+          [(ngModel)]="postCode"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label class="mb-2">Place</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputEmail4"
+          placeholder="Place"
+          name="place"
+          [(ngModel)]="place"
+        />
+      </div>
+      <div class="form-group col-md-6 mb-3">
+        <label class="mb-2">State</label>
+        <select
+          id="inputState"
+          class="form-control"
+          name="inputState"
+          [(ngModel)]="inputState"
+        >
+          <option selected>Choose...</option>
+          <option value="Afghanistan">AFGHANISTAN</option>
+          <option value="Albania">ALBANIA</option>
+          <option value="Algeria">ALGERIA</option>
+          <option value="Bangladesh">BANGLADESH</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label class="mb-2">Vat Number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputEmail4"
+          placeholder="Vat Number"
+          name="vatNumber"
+          [(ngModel)]="vatNumber"
+        />
+      </div>
+      <div class="form-group col-md-6 mb-3">
+        <button class="btn btn-primary">Save</button>
+        <button class="btn btn-danger m-3">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>
