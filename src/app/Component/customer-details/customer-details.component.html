@@ -74,16 +74,18 @@
       <div class="form-group col-md-6 mb-3">
         <label class="mb-2">State</label>
         <select
-          id="inputState"
+          id="state"
           class="form-control"
-          name="inputState"
-          [(ngModel)]="inputState"
+          name="state"
+          [(ngModel)]="state"
         >
-          <option selected>Choose...</option>
-          <option value="Afghanistan">AFGHANISTAN</option>
-          <option value="Albania">ALBANIA</option>
-          <option value="Algeria">ALGERIA</option>
-          <option value="Bangladesh">BANGLADESH</option>
+          <option
+            *ngFor="let country of countries"
+            [value]="country.name"
+            [selected]="country.name === state"
+          >
+            {{ country.name }}
+          </option>
         </select>
       </div>
     </div>
