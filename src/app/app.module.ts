@@ -10,9 +10,17 @@ import { ProductDetailsComponent } from './Component/product-details/product-det
 import { CustomerDetailsComponent } from './Component/customer-details/customer-details.component';
 
 @NgModule({
-  declarations: [AppComponent, InvoceFormComponent, InvoiceDetailsComponent, ProductDetailsComponent, CustomerDetailsComponent],
+  declarations: [
+    AppComponent,
+    InvoceFormComponent,
+    InvoiceDetailsComponent,
+    ProductDetailsComponent,
+    CustomerDetailsComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+// 164e5bba8a724fa6b0be7c538e93c3fc

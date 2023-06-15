@@ -63,7 +63,6 @@ export class ProductDetailsComponent implements OnInit {
 
         // Add the new row to the tableData array
         this.tableData.push(newRow);
-        console.log(this.tableData);
       }
     }
   };
