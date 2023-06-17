@@ -31,6 +31,7 @@ export class CustomerDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getCountry();
+    this.GetCustomersDetails();
   }
 
   onSubmit(form: NgForm) {
@@ -40,10 +41,21 @@ export class CustomerDetailsComponent implements OnInit {
 
   public getCountry() {
     this.http
-      .get<Country[]>('https://symfony.wezp/invoiceapi/invoiceapi/id')
+      .get<Country[]>('https://symfony.wezp/ripon/invoiceapi/id')
       .subscribe((data: any) => {
         if (data) {
           this.countries = JSON.parse(data);
+        }
+      });
+  }
+
+  public GetCustomersDetails() {
+    this.http
+      .get<Country[]>('https://symfony.wezp/ripon/invoiceapi/new/26')
+      .subscribe((data: any) => {
+        if (data) {
+          const results = JSON.parse(data.meta);
+          console.log(data);
         }
       });
   }
