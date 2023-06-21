@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
+// import { SharedService } from './../../shared.service';
+import { InvoiceLine, Invoice, CustomerDetails } from '../../uti';
+import { GlobalBooleanService } from './../../shared.service';
 
 interface Country {
   id: number;
@@ -17,26 +20,21 @@ interface Country {
   styleUrls: ['./customer-details.component.css'],
 })
 export class CustomerDetailsComponent implements OnInit {
-  name: string = 'Ripon';
-  contact: string = '01724446252';
-  address: string = 'Tangil, Bangladesh';
-  postCode: string = '1900';
-  place: string = 'Santosh';
-  vatNumber: string = '1234';
-  state: string = 'BANGLADESH';
+  @Input() customerDetailsInfo: CustomerDetails[] = [];
 
   countries: Country[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    public globalBooleanService: GlobalBooleanService
+  ) {}
 
   ngOnInit() {
     this.getCountry();
-    this.GetCustomersDetails();
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.form.value);
-    console.log(this.name);
+    console.log(this.customerDetailsInfo);
   }
 
   public getCountry() {
@@ -45,17 +43,7 @@ export class CustomerDetailsComponent implements OnInit {
       .subscribe((data: any) => {
         if (data) {
           this.countries = JSON.parse(data);
-        }
-      });
-  }
-
-  public GetCustomersDetails() {
-    this.http
-      .get<Country[]>('https://symfony.wezp/ripon/invoiceapi/new/26')
-      .subscribe((data: any) => {
-        if (data) {
-          const results = JSON.parse(data.meta);
-          console.log(data);
+          console.log(this.countries);
         }
       });
   }

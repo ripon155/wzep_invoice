@@ -17,15 +17,16 @@
             <input
               class="form-control"
               type="hidden"
-              [value]="row.id"
+              [ngModel]="row.id"
               [name]="'id-' + row.id"
             />
             <input
               class="form-control"
               type="text"
               placeholder="0.00"
+              [ngModel]="row.quantity"
               [name]="'quantity-' + row.id"
-              [value]="row.quantity"
+              (input)="handleChangeQuantity($event, row.id)"
             />
             <div class="input-group-append">
               <span class="input-group-text" id="quantityBtn">X</span>
@@ -37,10 +38,11 @@
             class="form-control"
             maxlength="250"
             rows="1"
+            [ngModel]="row.description"
             [name]="'description-' + row.id"
             [id]="'description-' + row.id"
-            >{{ row.description }}</textarea
-          >
+            (input)="handleChangeDesc($event, row.id)"
+          ></textarea>
         </td>
         <td style="width: 20%">
           <div class="input-group mb-3">
@@ -51,8 +53,9 @@
               class="form-control"
               placeholder="0.00"
               type="text"
+              [ngModel]="row.unitPrice"
               [name]="'unit-price-' + row.id"
-              [value]="row.unitPrice"
+              (input)="handleChangePrice($event, row.id)"
             />
           </div>
         </td>
@@ -66,8 +69,8 @@
               placeholder="0.00"
               readonly
               type="text"
+              [ngModel]="row.total"
               [name]="'total-' + row.id"
-              [value]="row.total"
             />
           </div>
         </td>
@@ -77,12 +80,12 @@
               class="selectpicker form-control"
               type="text"
               [name]="'tax-rate-' + row.id"
-              [value]="row.taxRate"
               (change)="addRow($event)"
+              (change)="clickVatChange($event, row.id)"
             >
+              <option value="0">0 %</option>
               <option value="9">9 %</option>
               <option value="21">21 %</option>
-              <option value="0">0 %</option>
               <option value="Vat shifted">Vat shifted</option>
             </select>
             <div class="input-group-append">
@@ -90,7 +93,6 @@
             </div>
           </div>
         </td>
-
         <td class="action-cell" style="width: 5%">
           <button *ngIf="row.showDeleteButton" (click)="deleteRow(row.id)">
             Delete
@@ -112,6 +114,15 @@
     <div class="col-sm-5"></div>
     <div class="col-sm-3">
       <label class="lable" for="total">Amount :</label>
+    </div>
+    <div class="col-sm-3">
+      <label class="value" for="total" value="">€0.00</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-5"></div>
+    <div class="col-sm-3">
+      <label class="lable" for="total">Vat :</label>
     </div>
     <div class="col-sm-3">
       <label class="value" for="total" value="">€0.00</label>
@@ -142,7 +153,7 @@
         name="invoiceText"
         placeholder="factuur text"
         type="text"
-        value="Dit is een Factuur"
+        [(ngModel)]="invoiceText"
       />
     </div>
     <div class="col-sm-6"></div>

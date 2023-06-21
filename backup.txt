@@ -1,0 +1,20 @@
+<h6 class="title">Invoice</h6>
+            <div
+              class="info-date"
+              (click)="handleInvoiceComponent()"
+              *ngIf="!handleInvoice; else invoiceDetails"
+            >
+              <div class="info-date-item">
+                <p class="info-title">Invoice No:</p>
+                <p class="info-dsc" for="labelInvoice">{{ invoiceNumber }}</p>
+              </div>
+              <div class="info-date-item">
+                <p class="info-title">Invoice Refarence:</p>
+                <p class="info-dsc" for="">125444</p>
+              </div>
+              <div class="info-date-item">
+                <p class="info-title">Invoice Date:</p>
+                <p class="info-dsc" for="labelInvoiceDate">19-05-2023</p>
+                <small for="labelPayDueDate">18-06-2023</small>
+              </div>
+            </div>

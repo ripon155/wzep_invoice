@@ -10,27 +10,28 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="fontStyle">
-                  <label class="fw-bold">Gitanjali Code Rhythm</label>
+                  <label class="fw-bold">{{ company }}</label>
                 </div>
-                <label for="labelOfCountry">Sabalia 8</label
-                ><label for="labelOfCountry">1111AA Tangail</label>
+
+                <label for="labelOfCountry">{{ address }} {{ number }}</label>
+                <label for="labelOfCountry">{{ zipCode }} {{ city }}</label>
               </div>
               <div class="col-md-4">
-                <label for="labelOfCountry" *ngIf="phoneNumber"
-                  >Tel: {{ phoneNumber }}</label
+                <label for="labelOfCountry" *ngIf="phone"
+                  >Tel: {{ phone }}</label
                 >
                 <br />
-                <label for="labelOfCountry" *ngIf="chamberOfCommerce"
-                  >KvK: {{ chamberOfCommerce }}</label
+                <label for="labelOfCountry" *ngIf="kvkNumber"
+                  >KvK: {{ kvkNumber }}</label
                 >
               </div>
               <div class="col-md-4">
-                <label for="labelOfCountry" *ngIf="vatNumber"
-                  >BTW: {{ vatNumber }}</label
+                <label for="labelOfCountry" *ngIf="btwNumber"
+                  >BTW: {{ btwNumber }}</label
                 >
                 <br />
-                <label for="labelOfCountry" *ngIf="bank"
-                  >Bank: {{ bank }}</label
+                <label for="labelOfCountry" *ngIf="accountNumber"
+                  >Bank: {{ accountNumber }}</label
                 >
               </div>
             </div>
@@ -41,59 +42,63 @@
           <div class="info-left mt-4">
             <div
               class="rounded"
-              (click)="handleCustomerComponent()"
-              *ngIf="!handleCustomerCompo; else customerDetails"
+              (click)="globalBooleanService.toggleCustomer()"
+              *ngIf="
+                !globalBooleanService.globalCustomerBoolean;
+                else customerDetails
+              "
             >
-              <div>
-                <span class="fs-3 fw-bold"
-                  >Gitanjali Code Rhythm
-                  <img width="35" src="/assets/edit.svg" alt=""
-                /></span>
-              </div>
-              <div>
-                <span>Nikunja Behari Goswami</span>
-              </div>
-              <div>
-                <span>Sabalia</span>
-              </div>
-              <div>
-                <span>1900 Tangail</span>
+              <div *ngFor="let customer of customerDetailsInfo; let i = index">
+                <div>
+                  <span class="fs-3 fw-bold">
+                    {{ customer.companyName }}
+                    <img width="35" src="/assets/edit.svg" alt=""
+                  /></span>
+                </div>
+                <div>
+                  <span>{{ customer.contactName }}</span>
+                </div>
+                <div>
+                  <span>{{ customer.address }}</span>
+                </div>
+                <div>
+                  <span>{{ customer.postalCode }} {{ customer.city }} </span>
+                </div>
               </div>
             </div>
           </div>
+
           <div class="info-right mt-4 ps-2">
             <h6 class="title">Invoice</h6>
+
             <div
               class="info-date"
-              (click)="handleInvoiceComponent()"
-              *ngIf="!handleInvoice; else invoiceDetails"
+              (click)="globalBooleanService.toggleInvoice()"
+              *ngIf="
+                !globalBooleanService.globalInvoiceBoolean;
+                else invoiceDetails
+              "
+              style="margin: 0 10px 6px 10px"
             >
               <div class="info-date-item">
                 <p class="info-title">Invoice No:</p>
-                <p class="info-dsc" for="labelInvoice">2023-100</p>
+                <p class="info-dsc" for="labelInvoice">
+                  {{ invoice && invoice[0] ? invoice[0].invoiceNumber : "" }}
+                </p>
               </div>
               <div class="info-date-item">
                 <p class="info-title">Invoice Refarence:</p>
-                <p class="info-dsc" for="">125444</p>
+                <p class="info-dsc" for="">
+                  {{ invoice && invoice[0] ? invoice[0].reference : "" }}
+                </p>
               </div>
               <div class="info-date-item">
                 <p class="info-title">Invoice Date:</p>
-                <p class="info-dsc" for="labelInvoiceDate">19-05-2023</p>
+                <p class="info-dsc" for="labelInvoiceDate">
+                  {{ invoice && invoice[0] ? invoice[0].invoiceDate : "" }}
+                </p>
                 <small for="labelPayDueDate">18-06-2023</small>
               </div>
-              <!-- <div class="fontStyle">
-                <span class="col-md-8" for="labelInvoice">2023-100</span>
-                <span class="col-md-4" for="labelInvoiceDate">19-05-2023</span>
-              </div>
-              <div class="fontStyle">
-                <label class="col-md-8" for="labelInvoice"></label>
-                <span
-                  class="col-md-4"
-                  for="labelPayDueDate"
-                  style="float: right"
-                  >18-06-2023</span
-                >
-              </div> -->
             </div>
           </div>
         </div>
@@ -101,18 +106,22 @@
         <div class="row">
           <ng-template #customerDetails>
             <div class="container">
-              <app-customer-details></app-customer-details>
+              <app-customer-details
+                [customerDetailsInfo]="customerDetailsInfo"
+              ></app-customer-details>
             </div>
           </ng-template>
 
           <ng-template #invoiceDetails>
             <div class="container">
-              <app-invoice-details></app-invoice-details>
+              <app-invoice-details [invoice]="invoice"> </app-invoice-details>
             </div>
           </ng-template>
 
           <div class="container">
-            <app-product-details></app-product-details>
+            <app-product-details
+              [invoiceText]="invoiceText"
+            ></app-product-details>
           </div>
         </div>
       </div>

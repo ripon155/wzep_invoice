@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-product-details',
@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductDetailsComponent implements OnInit {
   tableData: any[] = [];
+  @Input() invoiceText: string = '';
+
+  totalSub: number = undefined!;
+  totalAmount: number = undefined!;
 
   ngOnInit() {
     // Initialization
@@ -14,8 +18,8 @@ export class ProductDetailsComponent implements OnInit {
       id: 1,
       quantity: 1,
       description: '',
-      unitPrice: 0,
-      total: 0,
+      unitPrice: null,
+      total: null,
       taxRate: null,
       showDeleteButton: false,
     };
@@ -55,8 +59,8 @@ export class ProductDetailsComponent implements OnInit {
           id: this.tableData.length + 1,
           quantity: 1,
           description: '',
-          unitPrice: 0,
-          total: 0,
+          unitPrice: null,
+          total: null,
           taxRate: null,
           showDeleteButton: false,
         };
@@ -72,5 +76,50 @@ export class ProductDetailsComponent implements OnInit {
     this.tableData = this.tableData.filter((row) => row.id !== rowId);
   }
 
-  calculateTotal(id: number) {}
+  // Handle the change event
+  handleChangePrice(event: any, rowId: string) {
+    const id = Number.parseInt(rowId);
+    const newValue = event.target.value;
+    this.tableData[id - 1].unitPrice = newValue;
+
+    let newTotal =
+      Number.parseInt(newValue) *
+      Number.parseInt(this.tableData[id - 1].quantity);
+    this.tableData[id - 1].total = newTotal;
+    // console.log(this.tableData);
+  }
+
+  handleChangeDesc(event: any, rowId: string) {
+    const id = Number.parseInt(rowId);
+    const newDescription = event.target.value;
+    this.tableData[id - 1].description = newDescription;
+    console.log(this.tableData);
+  }
+
+  handleChangeQuantity(event: any, rowId: string) {
+    const id = Number.parseInt(rowId);
+    const newQuantity = event.target.value;
+    this.tableData[id - 1].quantity = newQuantity;
+
+    let newTotal =
+      Number.parseInt(newQuantity) *
+      Number.parseInt(this.tableData[id - 1].total);
+    this.tableData[id - 1].total = newTotal;
+  }
+
+  clickVatChange(event: any, rowId: string) {
+    const id = Number.parseInt(rowId);
+    const newTaxRate = event.target.value;
+    this.tableData[id - 1].taxRate = newTaxRate;
+  }
+
+  calculateTotal() {
+    const total = this.tableData.reduce((accumulator, element) => {
+      let total =
+        Number.parseInt(element.total) * Number.parseInt(element.total);
+      return accumulator + total;
+    }, 0);
+  }
+
+  //current data
 }

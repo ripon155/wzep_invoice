@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { InvoiceDetailsComponent } from './Component/invoice-details/invoice-details.component';
 import { ProductDetailsComponent } from './Component/product-details/product-details.component';
 import { CustomerDetailsComponent } from './Component/customer-details/customer-details.component';
+import { GlobalBooleanService } from './shared.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CustomerDetailsComponent } from './Component/customer-details/customer-
     CustomerDetailsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
-  providers: [],
+
+  providers: [GlobalBooleanService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

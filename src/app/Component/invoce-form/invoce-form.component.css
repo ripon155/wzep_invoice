@@ -149,3 +149,9 @@ form {
   font-weight: 600;
   color: #ffffff;
 }
+
+.title {
+  background-color: #f5f6fa;
+  margin: 0 11px 6px 11px;
+  border: 1px solid #e5e6e6;
+}

@@ -22,7 +22,7 @@
         name="invoiceNumber"
         type="text"
         disabled
-        ngModel
+        [(ngModel)]="invoice[0].invoiceNumber"
       />
     </div>
 
@@ -34,7 +34,7 @@
           name="date"
           placeholder="dd-MM-yyyy"
           type="date"
-          ngModel
+          [(ngModel)]="invoice[0].invoiceDate"
         />
       </div>
     </div>
@@ -46,7 +46,7 @@
         name="reference"
         placeholder="Reference"
         type="text"
-        ngModel
+        [(ngModel)]="invoice[0].reference"
       />
     </div>
 
@@ -57,7 +57,7 @@
         name="paymentTerm"
         placeholder="Term of payment"
         type="text"
-        ngModel
+        [(ngModel)]="invoice[0].paymentTerm"
       />
     </div>
 
@@ -70,16 +70,8 @@
         type="checkbox"
         value=""
         name="checkbox"
-        ngModel
-      />
-      <input
-        class="form-control"
-        formcontrolname="customerDetails"
-        id="customerDetails"
-        name="customerDetails"
-        type="hidden"
-        value="26"
-        ngModel
+        [(ngModel)]="invoice[0].alreadyPaid"
+        (ngModelChange)="invoice[0].alreadyPaid = true"
       />
     </div>
 
@@ -92,7 +84,12 @@
 
     <label class="col-sm-2" for="invoice"></label>
     <div class="col-sm-4 form-group">
-      <button class="btn btn-danger" style="margin: 4px" type="button">
+      <button
+        class="btn btn-danger"
+        style="margin: 4px"
+        type="button"
+        (click)="globalBooleanService.toggleInvoice()"
+      >
         Cancel
       </button>
       <button class="btn btn-primary" style="margin: 4px" type="submit">
