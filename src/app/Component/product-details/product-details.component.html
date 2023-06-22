@@ -150,10 +150,10 @@
       <br /><br />
       <input
         class="form-control invoicetext"
-        name="invoiceText"
+        name="InvoiceText"
         placeholder="factuur text"
         type="text"
-        [(ngModel)]="invoiceText"
+        [(ngModel)]="invoice[0].InvoiceText"
       />
     </div>
     <div class="col-sm-6"></div>
@@ -178,6 +178,7 @@
         style="margin: 4px"
         type="button"
         value="Save and create PDF"
+        (click)="createInvoice()"
       />
     </div>
   </div>

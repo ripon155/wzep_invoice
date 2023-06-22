@@ -36,8 +36,6 @@ export class InvoceFormComponent implements OnInit {
 
   //invoice text
 
-  invoiceText: string = ''; // @Input()
-
   constructor(
     private http: HttpClient,
 
@@ -54,8 +52,6 @@ export class InvoceFormComponent implements OnInit {
       .subscribe((data: any) => {
         if (data) {
           // this.sharedService.setProfile(data);
-
-          // console.log(data);
 
           //profile info
           const profileDetails = JSON.parse(data.meta);
@@ -76,7 +72,6 @@ export class InvoceFormComponent implements OnInit {
 
           this.invoiceNumber = data.invoice_number;
           //invoice text
-          this.invoiceText = data.invoice_text;
           //set customer info
           const customerInfo = JSON.parse(data.previous_data);
           // console.log(customerInfo);
@@ -110,8 +105,8 @@ export class InvoceFormComponent implements OnInit {
           const invoiceInfo = new Invoice();
           invoiceInfo.invoiceNumber = data.invoice_number;
           invoiceInfo.InvoiceText = data.invoice_text;
-          invoiceInfo.id = customerInfo.user.id;
-          invoiceInfo.customerDetailsId = id;
+          // invoiceInfo.id = customerInfo.user.id;
+          // invoiceInfo.customerDetailsId = id;
 
           this.invoice.push(invoiceInfo);
         }

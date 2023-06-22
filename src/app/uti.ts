@@ -7,16 +7,16 @@ export class InvoiceLine {
 }
 
 export class Invoice {
-  InvoiceText: string = '';
+  InvoiceText: string = 'Dit is een Factuur';
   alreadyPaid: boolean = false;
-  id: number = undefined!;
+  id: string = '';
   invoiceDate: string = getCurrentDate();
-  invoiceNumber: number = undefined!;
-  invoiceStatus: string = '';
+  invoiceNumber: string = '';
+  invoiceStatus: string = 'Send';
   paymentTerm: number = 30;
   reference: string = '';
   vatReversed: boolean = false;
-  customerDetailsId: number = undefined!;
+  customerDetailsId: string = '';
 }
 
 export class CustomerDetails {

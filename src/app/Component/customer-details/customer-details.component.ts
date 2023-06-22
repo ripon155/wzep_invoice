@@ -33,7 +33,24 @@ export class CustomerDetailsComponent implements OnInit {
     this.getCountry();
   }
 
+  // update customer
   onSubmit(form: NgForm) {
+    const data = this.customerDetailsInfo[0];
+    const url = 'https://symfony.wezp/ripon/invoiceapi/editcustomer';
+
+    this.http.post(url, data).subscribe(
+      (response) => {
+        console.log('POST request successful', response);
+        // Handle the response data
+      },
+      (error) => {
+        console.error('Error occurred', error);
+        console.error('An error occurred:', error.error);
+        console.log('Status code:', error.status);
+        console.log('Status text:', error.statusText);
+      }
+    );
+
     console.log(this.customerDetailsInfo);
   }
 
@@ -43,7 +60,7 @@ export class CustomerDetailsComponent implements OnInit {
       .subscribe((data: any) => {
         if (data) {
           this.countries = JSON.parse(data);
-          console.log(this.countries);
+          // console.log(this.countries);
         }
       });
   }

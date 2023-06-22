@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { InvoiceLine, Invoice, CustomerDetails } from '../../uti';
 
 @Component({
   selector: 'app-product-details',
@@ -9,8 +11,13 @@ export class ProductDetailsComponent implements OnInit {
   tableData: any[] = [];
   @Input() invoiceText: string = '';
 
+  @Input() invoice: Invoice[] = [];
+  @Input() customerDetailsInfo: CustomerDetails[] = [];
+
   totalSub: number = undefined!;
   totalAmount: number = undefined!;
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     // Initialization
@@ -20,7 +27,7 @@ export class ProductDetailsComponent implements OnInit {
       description: '',
       unitPrice: null,
       total: null,
-      taxRate: null,
+      tax_rate: null,
       showDeleteButton: false,
     };
 
@@ -61,7 +68,7 @@ export class ProductDetailsComponent implements OnInit {
           description: '',
           unitPrice: null,
           total: null,
-          taxRate: null,
+          tax_rate: null,
           showDeleteButton: false,
         };
 
@@ -93,7 +100,7 @@ export class ProductDetailsComponent implements OnInit {
     const id = Number.parseInt(rowId);
     const newDescription = event.target.value;
     this.tableData[id - 1].description = newDescription;
-    console.log(this.tableData);
+    // console.log(this.tableData);
   }
 
   handleChangeQuantity(event: any, rowId: string) {
@@ -110,7 +117,7 @@ export class ProductDetailsComponent implements OnInit {
   clickVatChange(event: any, rowId: string) {
     const id = Number.parseInt(rowId);
     const newTaxRate = event.target.value;
-    this.tableData[id - 1].taxRate = newTaxRate;
+    this.tableData[id - 1].tax_rate = newTaxRate;
   }
 
   calculateTotal() {
@@ -121,5 +128,31 @@ export class ProductDetailsComponent implements OnInit {
     }, 0);
   }
 
-  //current data
+  // create invoice
+  createInvoice() {
+    console.log(this.invoice);
+    console.log(this.customerDetailsInfo);
+    console.log(this.tableData.slice(0, -1));
+    console.log(this.invoice[0].InvoiceText);
+    const data = {
+      customerDetails: this.customerDetailsInfo[0],
+      invoice: this.invoice[0],
+      invoiceLines: this.tableData.slice(0, -1),
+    };
+
+    const url = 'https://symfony.wezp/ripon/invoiceapi/createinvoice';
+
+    this.http.post(url, data).subscribe(
+      (response) => {
+        console.log('POST request successful', response);
+        // Handle the response data
+      },
+      (error) => {
+        console.error('Error occurred', error);
+        console.error('An error occurred:', error.error);
+        console.log('Status code:', error.status);
+        console.log('Status text:', error.statusText);
+      }
+    );
+  }
 }

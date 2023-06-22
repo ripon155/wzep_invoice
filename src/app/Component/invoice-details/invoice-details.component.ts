@@ -29,7 +29,5 @@ export class InvoiceDetailsComponent {
 
   onSubmit(form: NgForm) {
     console.log(this.invoice);
-
-    // console.log(form.form.value);
   }
 }
