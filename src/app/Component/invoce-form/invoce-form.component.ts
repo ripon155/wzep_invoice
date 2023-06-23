@@ -100,13 +100,14 @@ export class InvoceFormComponent implements OnInit {
           this.customerDetailsInfo.push(customerDetails);
 
           // console.log(this.customerDetailsInfo);
+          console.log(customerInfo.user.id, id);
 
           // invoice information
           const invoiceInfo = new Invoice();
           invoiceInfo.invoiceNumber = data.invoice_number;
           invoiceInfo.InvoiceText = data.invoice_text;
-          // invoiceInfo.id = customerInfo.user.id;
-          // invoiceInfo.customerDetailsId = id;
+          // invoiceInfo.id = customerInfo.user.id; // user id  = customerInfo.user.id
+          // invoiceInfo.customerDetails = id;
 
           this.invoice.push(invoiceInfo);
         }

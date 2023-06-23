@@ -148,13 +148,17 @@
   <div class="row">
     <div class="col-sm-12">
       <br /><br />
-      <input
-        class="form-control invoicetext"
-        name="InvoiceText"
-        placeholder="factuur text"
-        type="text"
-        [(ngModel)]="invoice[0].InvoiceText"
-      />
+      <div
+        *ngIf="invoice && invoice.length > 0 && invoice[0].InvoiceText !== null"
+      >
+        <input
+          class="form-control invoicetext"
+          name="InvoiceText"
+          placeholder="factuur text"
+          type="text"
+          [(ngModel)]="invoice[0].InvoiceText"
+        />
+      </div>
     </div>
     <div class="col-sm-6"></div>
     <div class="col-md-6" style="margin-top: 50px; margin-bottom: 50px">

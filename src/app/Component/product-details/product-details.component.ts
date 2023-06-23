@@ -9,7 +9,7 @@ import { InvoiceLine, Invoice, CustomerDetails } from '../../uti';
 })
 export class ProductDetailsComponent implements OnInit {
   tableData: any[] = [];
-  @Input() invoiceText: string = '';
+  // @Input() invoiceText: string = '';
 
   @Input() invoice: Invoice[] = [];
   @Input() customerDetailsInfo: CustomerDetails[] = [];
@@ -27,7 +27,7 @@ export class ProductDetailsComponent implements OnInit {
       description: '',
       unitPrice: null,
       total: null,
-      tax_rate: null,
+      tax_rate: 0,
       showDeleteButton: false,
     };
 
@@ -68,7 +68,7 @@ export class ProductDetailsComponent implements OnInit {
           description: '',
           unitPrice: null,
           total: null,
-          tax_rate: null,
+          tax_rate: 0,
           showDeleteButton: false,
         };
 
@@ -130,17 +130,32 @@ export class ProductDetailsComponent implements OnInit {
 
   // create invoice
   createInvoice() {
-    console.log(this.invoice);
-    console.log(this.customerDetailsInfo);
-    console.log(this.tableData.slice(0, -1));
-    console.log(this.invoice[0].InvoiceText);
+    // console.log(this.invoice);
+    // console.log(this.customerDetailsInfo);
+    // console.log(this.tableData.slice(0, -1));
+    // console.log(this.invoice[0].InvoiceText);
+
+    let existingArray = this.tableData;
+    if (this.tableData.length > 1) {
+      existingArray = this.tableData.slice(0, -1);
+    }
+    console.log(existingArray);
+
+    const newArray = existingArray.map((obj) => {
+      const { total, showDeleteButton, ...rest } = obj;
+      return rest;
+    });
+
+    console.log(newArray);
+
     const data = {
       customerDetails: this.customerDetailsInfo[0],
       invoice: this.invoice[0],
-      invoiceLines: this.tableData.slice(0, -1),
+      invoiceLines: newArray,
     };
 
     const url = 'https://symfony.wezp/ripon/invoiceapi/createinvoice';
+    console.log(data);
 
     this.http.post(url, data).subscribe(
       (response) => {

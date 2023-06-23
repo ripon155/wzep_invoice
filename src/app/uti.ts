@@ -16,7 +16,7 @@ export class Invoice {
   paymentTerm: number = 30;
   reference: string = '';
   vatReversed: boolean = false;
-  customerDetailsId: string = '';
+  // customerDetails: string = '';
 }
 
 export class CustomerDetails {
