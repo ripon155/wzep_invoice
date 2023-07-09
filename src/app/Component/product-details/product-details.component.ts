@@ -41,8 +41,9 @@ export class ProductDetailsComponent implements OnInit {
   //Add Row
   addRow = function (this: { tableData: any[] }, event: any) {
     let last = this.tableData.slice(-1)[0].id;
+    console.log(this.tableData.slice(-1));
 
-    var selectElement = <HTMLSelectElement>(
+    let selectElement = <HTMLSelectElement>(
       document.getElementsByName('tax-rate-' + last)[0]
     );
 
@@ -53,7 +54,7 @@ export class ProductDetailsComponent implements OnInit {
       selectElement.options[selectElement.selectedIndex].value;
 
     // add delete button previous row
-    if (this.tableData.length >= 1) {
+    if (this.tableData.length >= 1 && currentRow === last) {
       const prevRowIndex = this.tableData.length - 1;
       const prevRow = this.tableData[prevRowIndex];
       prevRow.showDeleteButton = true;
