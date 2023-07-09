@@ -17,6 +17,10 @@ export class ProductDetailsComponent implements OnInit {
   totalSub: number = undefined!;
   totalAmount: number = undefined!;
 
+  public invoiceTotalTax: number = 0;
+  public invoiceAmount: number = 0;
+  public subTotal: number = 0;
+
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
@@ -27,13 +31,14 @@ export class ProductDetailsComponent implements OnInit {
       description: '',
       unitPrice: null,
       total: null,
-      tax_rate: 0,
+      tax_rate: 9,
       showDeleteButton: false,
     };
 
     this.tableData.push(initialRow);
   }
 
+  //Add Row
   addRow = function (this: { tableData: any[] }, event: any) {
     let last = this.tableData.slice(-1)[0].id;
 
@@ -68,7 +73,7 @@ export class ProductDetailsComponent implements OnInit {
           description: '',
           unitPrice: null,
           total: null,
-          tax_rate: 0,
+          tax_rate: 9,
           showDeleteButton: false,
         };
 
@@ -81,60 +86,112 @@ export class ProductDetailsComponent implements OnInit {
   // delete row
   deleteRow(rowId: number) {
     this.tableData = this.tableData.filter((row) => row.id !== rowId);
+    this.calculateTotal();
   }
 
   // Handle the change event
   handleChangePrice(event: any, rowId: string) {
+    console.log(rowId);
+    console.log(this.tableData);
+
     const id = Number.parseInt(rowId);
     const newValue = event.target.value;
-    this.tableData[id - 1].unitPrice = newValue;
 
-    let newTotal =
-      Number.parseInt(newValue) *
-      Number.parseInt(this.tableData[id - 1].quantity);
-    this.tableData[id - 1].total = newTotal;
-    // console.log(this.tableData);
+    for (let i = 0; i < this.tableData.length; i++) {
+      if (this.tableData[i].id == id) {
+        console.log(this.tableData[i].id);
+        this.tableData[i].unitPrice = newValue;
+
+        let newTotal =
+          Number.parseInt(newValue) *
+          Number.parseInt(this.tableData[i].quantity);
+        this.tableData[i].total = newTotal;
+
+        this.calculateTotal();
+      }
+    }
+
+    this.calculateTotal();
   }
 
   handleChangeDesc(event: any, rowId: string) {
     const id = Number.parseInt(rowId);
     const newDescription = event.target.value;
-    this.tableData[id - 1].description = newDescription;
-    // console.log(this.tableData);
+
+    for (let i = 0; i < this.tableData.length; i++) {
+      if (this.tableData[i].id == id) {
+        console.log(this.tableData[i].id);
+
+        this.tableData[i].description = newDescription;
+        this.calculateTotal();
+      }
+    }
+
+    this.calculateTotal();
   }
 
   handleChangeQuantity(event: any, rowId: string) {
     const id = Number.parseInt(rowId);
     const newQuantity = event.target.value;
-    this.tableData[id - 1].quantity = newQuantity;
 
-    let newTotal =
-      Number.parseInt(newQuantity) *
-      Number.parseInt(this.tableData[id - 1].total);
-    this.tableData[id - 1].total = newTotal;
+    for (let i = 0; i < this.tableData.length; i++) {
+      if (this.tableData[i].id == id) {
+        console.log(this.tableData[i].id);
+
+        this.tableData[i].quantity = newQuantity;
+
+        let newTotal =
+          Number.parseInt(newQuantity) *
+          Number.parseInt(this.tableData[i].unitPrice);
+        this.tableData[i].total = newTotal;
+
+        this.calculateTotal();
+      }
+    }
+
+    this.calculateTotal();
   }
 
   clickVatChange(event: any, rowId: string) {
     const id = Number.parseInt(rowId);
     const newTaxRate = event.target.value;
-    this.tableData[id - 1].tax_rate = newTaxRate;
+
+    for (let i = 0; i < this.tableData.length; i++) {
+      if (this.tableData[i].id == id) {
+        console.log(this.tableData[i].id);
+        this.tableData[i].tax_rate = newTaxRate;
+        this.calculateTotal();
+      }
+    }
+
+    this.calculateTotal();
   }
 
   calculateTotal() {
-    const total = this.tableData.reduce((accumulator, element) => {
-      let total =
-        Number.parseInt(element.total) * Number.parseInt(element.total);
-      return accumulator + total;
-    }, 0);
+    let tax: number = 0;
+    let amount: number = 0;
+    const total = this.tableData.forEach((items) => {
+      if (items?.quantity && items?.unitPrice) {
+        //SubTotal
+        amount +=
+          Number.parseInt(items.quantity) * Number.parseInt(items.unitPrice);
+
+        if (items.tax_rate != 0 && items.tax_rate != 'Vat shifted') {
+          tax +=
+            (Number.parseInt(items.quantity) *
+              Number.parseInt(items.unitPrice) *
+              Number.parseInt(items.tax_rate)) /
+            100;
+        }
+      }
+    });
+    this.invoiceTotalTax = tax;
+    this.invoiceAmount = amount;
+    this.subTotal = this.invoiceAmount - this.invoiceTotalTax;
   }
 
   // create invoice
   createInvoice() {
-    // console.log(this.invoice);
-    // console.log(this.customerDetailsInfo);
-    // console.log(this.tableData.slice(0, -1));
-    // console.log(this.invoice[0].InvoiceText);
-
     let existingArray = this.tableData;
     if (this.tableData.length > 1) {
       existingArray = this.tableData.slice(0, -1);
@@ -163,11 +220,15 @@ export class ProductDetailsComponent implements OnInit {
         // Handle the response data
       },
       (error) => {
-        console.error('Error occurred', error);
-        console.error('An error occurred:', error.error);
-        console.log('Status code:', error.status);
-        console.log('Status text:', error.statusText);
+        // console.error('Error occurred', error);
+        // console.error('An error occurred:', error.error);
+        // console.log('Status code:', error.status);
+        // console.log('Status text:', error.statusText);
       }
     );
+  }
+
+  redirectToURL() {
+    window.location.href = 'https://symfony.wezp/invoices/?message=false';
   }
 }
